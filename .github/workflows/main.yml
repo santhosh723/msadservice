@@ -69,6 +69,8 @@ jobs:
         git config --global user.name $GITHUB_USER
         # Clone the necessary repos
         git clone https://github.com/santhosh723/helmcharts.git
+        pwd
+        ls -ltr
         git remote set-url origin https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_USER/helmcharts.git
         cd helmcharts
         echo "HELM_BASE=$(pwd)" >> $GITHUB_ENV
