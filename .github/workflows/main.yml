@@ -71,6 +71,7 @@ jobs:
         git config --global user.name $GITHUB_USER
         # Clone the necessary repos
         git clone https://github.com/santhosh723/helmcharts.git
+        git remote set-url origin https://$GITHUB_USER:${{ secrets.HUB_SECRET }}@github.com/$GITHUB_USER/helmcharts.git
         cd helmcharts
         echo "HELM_BASE=$(pwd)" >> $GITHUB_ENV
         echo $HELM_BASE
@@ -84,5 +85,6 @@ jobs:
         git add .
         git status
         git commit -m 'tag update'
+        git remote rename origin destination
         git remote add origin https://$GITHUB_USER:${{ secrets.HUB_SECRET }}@github.com/$GITHUB_USER/helmcharts.git
         git push origin master 
