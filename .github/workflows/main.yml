@@ -79,7 +79,7 @@ jobs:
         echo "CHART_DIR=$(pwd)" >> $GITHUB_ENV
         sed -i 's/bar_.*/'$IMAGE_TAG'"/g' values.yaml 
         grep tag values.yaml
-        cd $HELM_BASE
+        cd ../
         pwd
         ls -lart
 #        git init
