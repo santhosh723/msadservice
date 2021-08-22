@@ -55,7 +55,30 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: msadservice
-        IMAGE_TAG: msad1_${{ github.sha }}
+        IMAGE_TAG: msadimg_${{ github.sha }}
       run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+#        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+ #       docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        
+    - name: Git Clone and Global Config
+      run: |
+        export GITHUB_USER=santhosh723
+        echo "GITHUB_USER=$GITHUB_USER" >> $GITHUB_ENV
+        echo "GITHUB_TOKEN=${{ secrets.HUB_SECRET }}" >> $GITHUB_ENV
+        git config --global user.email "santhosh.palanivel@hotmail.com"
+        git config --global user.name $GITHUB_USER
+        # Clone the necessary repos
+        git clone https://github.com/santhosh723/helmcharts.git
+        git remote set-url origin *https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_USER/helmcharts.git
+        cd helmcharts
+        echo "HELM_BASE=$(pwd)" >> $GITHUB_ENV
+        cd msadservice
+        echo "CHART_DIR=$(pwd)" >> $GITHUB_ENV
+        cd $CHART_DIR
+        sed -i 's/bar_.*/'$IMAGE_TAG'"/g' values.yaml 
+        grep tag values.yaml
+        cd $HELM_BASE
+        git add .
+        git commit -m 'tag update'
+        git remote add origin1 https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_USER/helmcharts.git
+        git push origin1 master
