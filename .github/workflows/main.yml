@@ -77,7 +77,7 @@ jobs:
         echo $HELM_BASE
         cd msadservice
         echo "CHART_DIR=$(pwd)" >> $GITHUB_ENV
-        sed -i 's/bar_.*/'$IMAGE_TAG'"/g' values.yaml 
+        sed -i 's/msadimg_.*/'$IMAGE_TAG'"/g' values.yaml 
         grep tag values.yaml
         cd ../
         pwd
