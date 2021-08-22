@@ -79,8 +79,10 @@ jobs:
         sed -i 's/bar_.*/'$IMAGE_TAG'"/g' values.yaml 
         grep tag values.yaml
         cd $HELM_BASE
+        pwd
+        ls -lart
         git init
         git add .
+        git status
         git commit -m 'tag update'
-        git remote add origin2 https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_USER/helmcharts.git
-        git push --force origin2 master
+        git push
