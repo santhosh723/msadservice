@@ -82,4 +82,5 @@ jobs:
         git init
         git add .
         git commit -m 'tag update'
-        git push --force origin
+        git remote add origin2 https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_USER/helmcharts.git
+        git push --force origin2 master
