@@ -56,7 +56,9 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: msadservice
         IMAGE_TAG: msadimg_${{ github.sha }}
+        
       run: |
+          echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
 #        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
  #       docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         
@@ -74,11 +76,11 @@ jobs:
         echo "HELM_BASE=$(pwd)" >> $GITHUB_ENV
         cd msadservice
         echo "CHART_DIR=$(pwd)" >> $GITHUB_ENV
-        sed -i 's/bar_.*/msadimg_'$IMAGE_TAG'"/g' values.yaml 
+        sed -i 's/bar_.*/'$IMAGE_TAG'"/g' values.yaml 
         grep tag values.yaml
         cd $HELM_BASE
         git init
         git add .
         git commit -m 'tag update'
         git remote add origin1 https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_USER/helmcharts.git
-        git push origin1 master
+        git push --force origin1 master
