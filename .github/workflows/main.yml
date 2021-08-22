@@ -82,8 +82,8 @@ jobs:
         cd ../
         pwd
         ls -lart
-#        git init
- #       git add .
-  #      git status
-   #     git commit -m 'tag update'
-    #    git push
+        git init
+        git add .
+        git status
+        git commit -m 'tag update'
+        git push
