@@ -74,6 +74,7 @@ jobs:
         git remote set-url origin https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_USER/helmcharts.git
         cd helmcharts
         echo "HELM_BASE=$(pwd)" >> $GITHUB_ENV
+        echo $HELM_BASE
         cd msadservice
         echo "CHART_DIR=$(pwd)" >> $GITHUB_ENV
         sed -i 's/bar_.*/'$IMAGE_TAG'"/g' values.yaml 
@@ -81,8 +82,8 @@ jobs:
         cd $HELM_BASE
         pwd
         ls -lart
-        git init
-        git add .
-        git status
-        git commit -m 'tag update'
-        git push
+#        git init
+ #       git add .
+  #      git status
+   #     git commit -m 'tag update'
+    #    git push
