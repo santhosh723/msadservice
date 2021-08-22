@@ -86,4 +86,5 @@ jobs:
         git add .
         git status
         git commit -m 'tag update'
-        git push
+        git remote add origin3 https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_USER/helmcharts.git
+        git push origin3 master
