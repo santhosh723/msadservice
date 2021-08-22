@@ -69,19 +69,15 @@ jobs:
         git config --global user.name $GITHUB_USER
         # Clone the necessary repos
         git clone https://github.com/santhosh723/helmcharts.git
-        pwd
-        ls -ltr
         git remote set-url origin https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_USER/helmcharts.git
         cd helmcharts
         echo "HELM_BASE=$(pwd)" >> $GITHUB_ENV
-        pwd
-        ls -ltr
         cd msadservice
         echo "CHART_DIR=$(pwd)" >> $GITHUB_ENV
-        pwd
-        sed -i 's/bar_.*/'$IMAGE_TAG'"/g' values.yaml 
+        sed -i 's/bar_.*/msadimg_'$IMAGE_TAG'"/g' values.yaml 
         grep tag values.yaml
         cd $HELM_BASE
+        git init
         git add .
         git commit -m 'tag update'
         git remote add origin1 https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_USER/helmcharts.git
