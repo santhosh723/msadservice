@@ -81,7 +81,7 @@ jobs:
         grep tag values.yaml
         cd ../
         pwd
-        echo $GITHUB_TOKEN
+        echo `$GITHUB_TOKEN`
         git init
         git add .
         git status
