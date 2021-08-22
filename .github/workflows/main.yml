@@ -84,4 +84,5 @@ jobs:
         git add .
         git status
         git commit -m 'tag update'
-        git push --set-upstream origin master
+        git remote add origin https://$GITHUB_USER:${{ secrets.HUB_SECRET }}@github.com/$GITHUB_USER/helmcharts.git
+        git push origin master 
